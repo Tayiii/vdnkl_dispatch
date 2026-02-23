@@ -1,7 +1,7 @@
 from datetime import date, datetime, timedelta
 from io import BytesIO
 
-from fastapi import APIRouter, Depends, Form, Query
+from fastapi import APIRouter, Depends, Form, HTTPException, Query
 from fastapi.responses import RedirectResponse, StreamingResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
@@ -165,6 +165,8 @@ async def update_settings(
     settings.slot_minutes = slot_minutes
     settings.default_capacity = default_capacity
     if pin.strip():
+        if len(pin.encode("utf-8")) > 72:
+            raise HTTPException(status_code=400, detail="PIN слишком длинный (bcrypt допускает до 72 байт)")
         settings.field_extra_pin_hash = hash_password(pin)
     await add_audit(db, user.id, "settings", "settings", "1", "updated")
     await db.commit()
