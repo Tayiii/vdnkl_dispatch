@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Карточка #{{ appointment.id }}</h2>
+<p>Статус: {{ appointment.status }}</p>
+<form method="post" action="/field/appointment/{{ appointment.id }}/status">
+<select name="status_value">
+<option value="en_route">В пути</option>
+<option value="done">Выполнено</option>
+<option value="failed">Не выполнено</option>
+</select>
+<textarea name="field_notes" placeholder="Заметка"></textarea>
+<button>Сохранить статус</button>
+</form>
+<h3>Результат выезда</h3>
+<form method="post" action="/field/appointment/{{ appointment.id }}/result" enctype="multipart/form-data">
+<input name="meter_number" placeholder="Номер счётчика" />
+<input name="meter_model" placeholder="Модель" />
+<input name="passport_verification_date" placeholder="Дата поверки" />
+<input name="verification_interval" placeholder="Интервал" />
+<input name="seal_number" placeholder="Номер пломбы" />
+<input type="file" name="photos" multiple />
+<button>Добавить результат</button>
+</form>
+<a href="/field/reschedule/{{ appointment.id }}">Запрос переноса</a>
+<h3>Фото</h3>
+<ul>{% for p in photos %}<li><a href="/{{ p.path }}">{{ p.path }}</a></li>{% endfor %}</ul>
+<h3>История</h3>
+<ul>{% for h in history %}<li>{{ h.created_at }} - {{ h.description }}</li>{% endfor %}</ul>
+{% endblock %}

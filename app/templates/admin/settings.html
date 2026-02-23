@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Общие настройки</h2>
+<form method="post" action="/admin/settings">
+<input type="number" name="slot_minutes" value="{{ settings.slot_minutes }}" />
+<input type="number" name="default_capacity" value="{{ settings.default_capacity }}" />
+<input type="password" name="pin" placeholder="Новый PIN для выездных" />
+<button>Сохранить</button>
+</form>
+<p><a href="/admin/export?date={{ today }}">Экспорт за сегодня</a></p>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Новая заявка</h2>
+<form method="post" action="/operator/appointment/new">
+<input type="hidden" name="slot" value="{{ slot }}" />
+<label>Услуга</label><select name="service_id">{% for s in services %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}</select>
+<input name="full_name" placeholder="ФИО" required />
+<input name="account_number" placeholder="Лицевой счёт" required />
+<input name="phone" placeholder="Телефон" required />
+<input name="street" placeholder="Улица" required />
+<input name="house" placeholder="Дом" required />
+<input name="apartment" placeholder="Квартира" required />
+<input name="address_extra" placeholder="Доп. адрес" />
+<textarea name="operator_comment" placeholder="Комментарий"></textarea>
+<button type="submit">Создать</button>
+</form>
+{% endblock %}
