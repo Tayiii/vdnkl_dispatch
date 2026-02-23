@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Расписание ({{ day }})</h2>
+<table><tr><th>Слот</th><th>Занято</th><th>Действие</th></tr>
+{% for row in slots %}
+<tr>
+  <td>{{ row.slot }}</td>
+  <td>{{ row.used }}/{{ settings.default_capacity }}</td>
+  <td><a href="/operator/appointment/new?slot={{ row.slot.isoformat() }}">Создать</a></td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

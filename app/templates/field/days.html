@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Дни</h2>
+<ul>{% for d in dates %}<li><a href="/field/list?date={{ d }}">{{ d }}</a></li>{% endfor %}</ul>
+{% endblock %}

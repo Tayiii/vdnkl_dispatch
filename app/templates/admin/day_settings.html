@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Настройки дня {{ day }}</h2>
+<form method="post" action="/admin/day-settings">
+<input type="hidden" name="day" value="{{ day }}" />
+<label><input type="checkbox" name="self_assign_enabled" {% if ds and ds.self_assign_enabled %}checked{% endif %}/> self-assign</label>
+<input type="number" name="day_capacity_override" value="{{ ds.day_capacity_override if ds else '' }}" placeholder="Вместимость дня" />
+<button>Сохранить</button>
+</form>
+<h3>Вместимость по слотам</h3>
+{% for s in slots %}
+<form method="post" action="/admin/slot-capacity">
+<input type="hidden" name="day" value="{{ day }}" />
+<input type="hidden" name="slot_start" value="{{ s.isoformat() }}" />
+{{ s }}
+<input type="number" name="capacity" value="{{ cap_map.get(s, settings.default_capacity) }}" />
+<button>OK</button>
+</form>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Заявка #{{ appointment.id }}</h2>
+<p>Статус: {{ appointment.status }}</p>
+<p>{{ appointment.full_name }} | {{ appointment.phone }}</p>
+<p>{{ appointment.street }}, {{ appointment.house }}, {{ appointment.apartment }}</p>
+{% if appointment.status != 'cancelled' %}
+<form method="post" action="/operator/appointment/{{ appointment.id }}/cancel">
+<input name="reason" placeholder="Причина отмены" required />
+<button>Отменить</button>
+</form>
+{% endif %}
+<h3>История</h3>
+<ul>{% for h in history %}<li>{{ h.created_at }} - {{ h.description }}</li>{% endfor %}</ul>
+{% endblock %}

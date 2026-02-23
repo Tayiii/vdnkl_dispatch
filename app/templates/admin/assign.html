@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Массовое назначение</h2>
+<form method="post" action="/admin/assign">
+<select name="field_user_id">{% for f in fields %}<option value="{{ f.id }}">{{ f.username }}</option>{% endfor %}</select>
+<table>
+{% for a in appointments %}
+<tr><td><input type="checkbox" name="appointment_ids" value="{{ a.id }}" /></td><td>#{{ a.id }}</td><td>{{ a.status }}</td><td>{{ a.slot_start }}</td></tr>
+{% endfor %}
+</table>
+<button>Назначить</button>
+</form>
+{% endblock %}
