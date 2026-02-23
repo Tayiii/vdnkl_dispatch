@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Запрос переноса #{{ appointment_id }}</h2>
+<form method="post" enctype="multipart/form-data">
+<textarea name="reason" required placeholder="Причина"></textarea>
+<input type="file" name="photos" multiple />
+<button>Отправить</button>
+</form>
+{% endblock %}

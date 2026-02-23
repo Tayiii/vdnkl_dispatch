@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Внеплановая заявка</h2>
+{% if not allowed %}
+<form method="post" action="/field/create-extra/pin">
+<input type="password" name="pin" placeholder="PIN" required />
+<button>Подтвердить PIN</button>
+</form>
+{% else %}
+<form method="post" action="/field/create-extra">
+<input name="slot" placeholder="ISO слот, например 2026-01-01T08:00:00" required />
+<select name="service_id">{% for s in services %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}</select>
+<input name="full_name" placeholder="ФИО" required />
+<input name="account_number" placeholder="Лицевой счёт" required />
+<input name="phone" placeholder="Телефон" required />
+<input name="street" placeholder="Улица" required />
+<input name="house" placeholder="Дом" required />
+<input name="apartment" placeholder="Квартира" required />
+<input name="address_extra" placeholder="Доп. адрес" />
+<textarea name="operator_comment" placeholder="Комментарий"></textarea>
+<button>Создать</button>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Заявки на {{ day }} ({{ filter }})</h2>
+<p>
+<a href="?date={{ day }}&filter=new">Новые</a> |
+<a href="?date={{ day }}&filter=mine">Мои</a> |
+<a href="?date={{ day }}&filter=done">Выполненные</a>
+</p>
+<table><tr><th>ID</th><th>Слот</th><th>Статус</th><th></th></tr>
+{% for a in appointments %}
+<tr>
+<td>{{ a.id }}</td><td>{{ a.slot_start }}</td><td>{{ a.status }}</td>
+<td>
+<a href="/field/appointment/{{ a.id }}">Открыть</a>
+{% if a.status == 'new' %}
+<form method="post" action="/field/appointment/{{ a.id }}/accept" style="display:inline"><button>Принять</button></form>
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
